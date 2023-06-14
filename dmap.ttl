@@ -1,0 +1,100 @@
+@prefix dmap: <https://ontologies.semanticarts.com/dmap/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://ontology.chalem.com/dmap> 
+  a owl:Ontology ;
+  skos:prefLabel "Dialog Mapping"@en .
+
+dmap:Argument a owl:Class ;
+  rdfs:subClassOf skos:Concept ;
+#   [ a owl:Restriction ;
+#      owl:onProperty dmap:supports ;
+#      owl:allValuesFrom dmap:Position
+#      ] ,
+#    [ a owl:Restriction ;
+#      owl:onProperty dmap:objectsTo ;
+#      owl:allValuesFrom dmap:Position] ;
+  owl:disjointWith dmap:Position ;
+  rdfs:comment "An Argument is a Concept that explicitly supports or refutes a Position."@en ;
+  rdfs:isDefinedBy dmap: .
+#  rdfs:label "Argument"@en .
+
+dmap:Issue a owl:Class ;
+  rdfs:subClassOf skos:Concept ;
+#     [ a owl:Restriction ;
+#       owl:onProperty dmap:generalizes ;
+#       owl:allValuesFrom dmap:Issue
+#     ] ,
+#     [ a owl:Restriction ;
+#       owl:onProperty dmap:specializes ;
+#       owl:allValuesFrom dmap:Issue
+#     ] ,
+#     [ a owl:Restriction ;
+#       owl:onProperty dmap:replaces ;
+#       owl:allValuesFrom dmap:Issue
+#     ] ;
+  owl:disjointWith dmap:Position .
+#  rdfs:isDefinedBy dmap: .
+#  rdfs:label "Issue"@en .
+
+dmap:Position a owl:Class ;
+  rdfs:subClassOf skos:Concept ;
+#    [ a owl:Restriction ;
+#      owl:onProperty dmap:respondsTo ;
+#      owl:allValuesFrom dmap:Issue
+#    ] ;
+#  rdfs:isDefinedBy dmap: ;
+  rdfs:label "Position"@en .
+
+dmap:generalizes a owl:ObjectProperty ;
+  rdfs:domain dmap:Issue ;
+  rdfs:range dmap:Issue .
+#  rdfs:isDefinedBy dmap: .
+#  rdfs:label "generalizes"@en .
+
+dmap:objectsTo a owl:ObjectProperty ;
+  rdfs:domain dmap:Argument ;
+  rdfs:range dmap:Position .
+#  rdfs:isDefinedBy dmap: ;
+#  rdfs:label "objects to"@en .
+
+dmap:questions a owl:ObjectProperty ;
+  rdfs:subPropertyOf dmap:suggestedBy ;
+  rdfs:domain dmap:Issue ;
+  rdfs:range skos:Concept ;
+  rdfs:comment "Indicates an issue that raises doubt about a Concept."@en .
+#  rdfs:isDefinedBy dmap: ;
+#  rdfs:label "questions"@en .
+
+dmap:replaces a owl:ObjectProperty ;
+  rdfs:domain dmap:Issue ;
+  rdfs:range dmap:Issue .
+#  rdfs:isDefinedBy dmap: ;
+#  rdfs:label "replaces"@en .
+
+dmap:respondsTo a owl:ObjectProperty ;
+  rdfs:domain dmap:Position ;
+  rdfs:range dmap:Issue .
+#  rdfs:isDefinedBy dmap: ;
+#  rdfs:label "responds to"@en .
+
+dmap:specializes a owl:ObjectProperty ;
+  rdfs:domain dmap:Issue ;
+  rdfs:range dmap:Issue .
+#  rdfs:isDefinedBy dmap: ;
+#  rdfs:label "specializes"@en .
+
+dmap:supports a owl:ObjectProperty ;
+  rdfs:domain dmap:Argument ;
+  rdfs:range dmap:Position .
+#  rdfs:isDefinedBy dmap: ;
+#  rdfs:label "supports"@en .
+
+dmap:suggestedBy a owl:ObjectProperty ;
+  rdfs:domain dmap:Issue ;
+  rdfs:range skos:Concept .
+#  rdfs:isDefinedBy dmap: ;
+#  rdfs:label "suggested by"@en .
