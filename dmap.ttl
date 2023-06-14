@@ -9,6 +9,9 @@
   a owl:Ontology ;
   skos:prefLabel "Dialog Mapping"@en .
 
+dmap:Node a owl:class ;
+  subClassOf gist:NetworkNode .
+
 dmap:Argument a owl:Class ;
   rdfs:subClassOf dmap:Node ;
 #   [ a owl:Restriction ;
@@ -40,9 +43,6 @@ dmap:Issue a owl:Class ;
   owl:disjointWith dmap:Position .
 #  rdfs:isDefinedBy dmap: .
 #  skos:prefLabel "Issue"@en .
-
-dmap:Node a owl:class ;
-  subClassOf gist:NetworkNode .
 
 dmap:Position a owl:Class ;
   rdfs:subClassOf dmap:Node ;
