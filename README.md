@@ -1,6 +1,4 @@
-# dmap
-Dialog Map
-
+# Dialog Map (dmap)
 Dialog mapping tool.
 
 See
