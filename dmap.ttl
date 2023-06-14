@@ -1,4 +1,5 @@
 @prefix dmap: <https://ontologies.semanticarts.com/dmap/> .
+@prefix gist: <https://w3id.org/semanticarts/gist/>
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -9,7 +10,7 @@
   skos:prefLabel "Dialog Mapping"@en .
 
 dmap:Argument a owl:Class ;
-  rdfs:subClassOf skos:Concept ;
+  rdfs:subClassOf dmap:Node ;
 #   [ a owl:Restriction ;
 #      owl:onProperty dmap:supports ;
 #      owl:allValuesFrom dmap:Position
@@ -17,13 +18,13 @@ dmap:Argument a owl:Class ;
 #    [ a owl:Restriction ;
 #      owl:onProperty dmap:objectsTo ;
 #      owl:allValuesFrom dmap:Position] ;
-  owl:disjointWith dmap:Position ;
+  owl:disjointWith dmap:Issue ;
   rdfs:comment "An Argument is a Concept that explicitly supports or refutes a Position."@en ;
-  rdfs:isDefinedBy dmap: .
-#  rdfs:label "Argument"@en .
+#  rdfs:isDefinedBy dmap: .
+#  skos:prefLabel "Argument"@en .
 
 dmap:Issue a owl:Class ;
-  rdfs:subClassOf skos:Concept ;
+  rdfs:subClassOf dmap:Node ;
 #     [ a owl:Restriction ;
 #       owl:onProperty dmap:generalizes ;
 #       owl:allValuesFrom dmap:Issue
@@ -38,48 +39,52 @@ dmap:Issue a owl:Class ;
 #     ] ;
   owl:disjointWith dmap:Position .
 #  rdfs:isDefinedBy dmap: .
-#  rdfs:label "Issue"@en .
+#  skos:prefLabel "Issue"@en .
+
+dmap:Node a owl:class ;
+  subClassOf gist:NetworkNode .
 
 dmap:Position a owl:Class ;
-  rdfs:subClassOf skos:Concept ;
+  rdfs:subClassOf dmap:Node ;
 #    [ a owl:Restriction ;
 #      owl:onProperty dmap:respondsTo ;
 #      owl:allValuesFrom dmap:Issue
 #    ] ;
+  owl:disjointWith dmap:Argument .
 #  rdfs:isDefinedBy dmap: ;
-  rdfs:label "Position"@en .
+#  skos:prefLabel "Position"@en .
 
 dmap:generalizes a owl:ObjectProperty ;
   rdfs:domain dmap:Issue ;
   rdfs:range dmap:Issue .
 #  rdfs:isDefinedBy dmap: .
-#  rdfs:label "generalizes"@en .
+#  skos:prefLabel "generalizes"@en .
 
 dmap:objectsTo a owl:ObjectProperty ;
   rdfs:domain dmap:Argument ;
   rdfs:range dmap:Position .
 #  rdfs:isDefinedBy dmap: ;
-#  rdfs:label "objects to"@en .
+#  skos:prefLabel "objects to"@en .
 
 dmap:questions a owl:ObjectProperty ;
   rdfs:subPropertyOf dmap:suggestedBy ;
   rdfs:domain dmap:Issue ;
-  rdfs:range skos:Concept ;
+  rdfs:range dmap:Node ;
   rdfs:comment "Indicates an issue that raises doubt about a Concept."@en .
 #  rdfs:isDefinedBy dmap: ;
-#  rdfs:label "questions"@en .
+#  skos:prefLabel "questions"@en .
 
 dmap:replaces a owl:ObjectProperty ;
   rdfs:domain dmap:Issue ;
   rdfs:range dmap:Issue .
 #  rdfs:isDefinedBy dmap: ;
-#  rdfs:label "replaces"@en .
+#  skos:prefLabel "replaces"@en .
 
 dmap:respondsTo a owl:ObjectProperty ;
   rdfs:domain dmap:Position ;
   rdfs:range dmap:Issue .
 #  rdfs:isDefinedBy dmap: ;
-#  rdfs:label "responds to"@en .
+#  skos:prefLabel "responds to"@en .
 
 dmap:specializes a owl:ObjectProperty ;
   rdfs:domain dmap:Issue ;
@@ -91,10 +96,10 @@ dmap:supports a owl:ObjectProperty ;
   rdfs:domain dmap:Argument ;
   rdfs:range dmap:Position .
 #  rdfs:isDefinedBy dmap: ;
-#  rdfs:label "supports"@en .
+#  skos:prefLabel "supports"@en .
 
 dmap:suggestedBy a owl:ObjectProperty ;
   rdfs:domain dmap:Issue ;
-  rdfs:range skos:Concept .
+  rdfs:range dmap:Node .
 #  rdfs:isDefinedBy dmap: ;
-#  rdfs:label "suggested by"@en .
+#  skos:prefLabel "suggested by"@en .
