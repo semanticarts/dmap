@@ -1,86 +1,105 @@
 @prefix ex: <http://example.com/>.
+@prefix dmap: <https://ontologies.semanticarts.com/dmap/>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
 # Declare classes
-ex:Node a rdfs:Class.
+dmap:Node a rdfs:Class.
 
-ex:Issue a rdfs:Class;
-   rdfs:subClassOf ex:Node.
+dmap:Issue a rdfs:Class;
+   rdfs:subClassOf dmap:Node.
 
-ex:Argument a rdfs:Class;
-   rdfs:subClassOf ex:Node.
+dmap:Argument a rdfs:Class;
+   rdfs:subClassOf dmap:Node.
 
-ex:Position a rdfs:Class;
-   rdfs:subClassOf ex:Node.
+dmap:Position a rdfs:Class;
+   rdfs:subClassOf dmap:Node.
 
 # Declare properties
-ex:text a rdf:Property;
-   rdfs:domain ex:Node;
+dmap:text a rdf:Property;
+   rdfs:domain dmap:Node;
    rdfs:range xsd:string.
 
-ex:isDeprecated a rdf:Property;
-   rdfs:domain ex:Node;
+dmap:isDeprecated a rdf:Property;
+   rdfs:domain dmap:Node;
    rdfs:range xsd:boolean.
 
-ex:id a rdf:Property;
-   rdfs:domain ex:Node;
+dmap:id a rdf:Property;
+   rdfs:domain dmap:Node;
    rdfs:range xsd:integer.
 
-ex:suggestedBy a rdf:Property;
-   rdfs:domain ex:Issue;
-   rdfs:range ex:Node.
+dmap:suggestedBy a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node.
 
-ex:questions a rdf:Property;
-   rdfs:domain ex:Issue;
-   rdfs:range ex:Node;
-   rdfs:subPropertyOf ex:suggestedBy.
+dmap:questions a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node;
+   rdfs:subPropertyOf dmap:suggestedBy.
 
-ex:generalizes a rdf:Property;
-   rdfs:domain ex:Issue;
-   rdfs:range ex:Node;
-   rdfs:subPropertyOf ex:suggestedBy.
+dmap:generalizes a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node;
+   rdfs:subPropertyOf dmap:suggestedBy.
 
-ex:specializes a rdf:Property;
-   rdfs:domain ex:Issue;
-   rdfs:range ex:Node;
-   rdfs:subPropertyOf ex:suggestedBy.
+dmap:specializes a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node;
+   rdfs:subPropertyOf dmap:suggestedBy.
 
-ex:replaces a rdf:Property;
-   rdfs:domain ex:Node;
-   rdfs:range ex:Node.
+dmap:replaces a rdf:Property;
+   rdfs:domain dmap:Node;
+   rdfs:range dmap:Node.
 
-ex:respondsTo a rdf:Property;
-   rdfs:domain ex:Position;
-   rdfs:range ex:Issue;
-   rdfs:subPropertyOf ex:suggestedBy.
+dmap:respondsTo a rdf:Property;
+   rdfs:domain dmap:Position;
+   rdfs:range dmap:Issue;
+   rdfs:subPropertyOf dmap:suggestedBy.
 
-ex:supports a rdf:Property;
-   rdfs:domain ex:Argument;
-   rdfs:range ex:Position;
-   rdfs:subPropertyOf ex:respondsTo.
+dmap:supports a rdf:Property;
+   rdfs:domain dmap:Argument;
+   rdfs:range dmap:Position;
+   rdfs:subPropertyOf dmap:respondsTo.
 
-ex:objectsTo a rdf:Property;
-   rdfs:domain ex:Argument;
-   rdfs:range ex:Position;
-   rdfs:subPropertyOf ex:respondsTo.
+dmap:objectsTo a rdf:Property;
+   rdfs:domain dmap:Argument;
+   rdfs:range dmap:Position;
+   rdfs:subPropertyOf dmap:respondsTo.
 
 # Some instance data
-ex:node1 a ex:Issue;
-   ex:id "1"^^xsd:integer;
-   ex:text "This is some text for issue node";
-   ex:isDeprecated "false"^^xsd:boolean;
-   ex:suggestedBy ex:node2.
+ex:node1 a dmap:Issue;
+   dmap:id "1"^^xsd:integer;
+   dmap:text "What should we order for dinner?".
 
-ex:node2 a ex:Argument;
-   ex:id "2"^^xsd:integer;
-   ex:text "This is some text for argument node";
-   ex:isDeprecated "false"^^xsd:boolean;
-   ex:supports ex:node3.
+ex:node2 a dmap:Position;
+   dmap:id "2"^^xsd:integer;
+   dmap:text "pizza";
+   dmap:respondsTo ex:node1.
 
-ex:node3 a ex:Position;
-   ex:id "3"^^xsd:integer;
-   ex:text "This is some text for position node";
-   ex:isDeprecated "true"^^xsd:boolean;
-   ex:respondsTo ex:node1.
+ex:node3 a dmap:Issue;
+   dmap:id "3"^^xsd:integer;
+   dmap:text "What should we have on it";
+   dmap:suggestedBy ex:node2.
+
+ex:node4 a dmap:Position;
+   dmap:id "4"^^xsd:integer;
+   dmap:text "burgers";
+   dmap:respondsTo ex:node1.
+
+ex:node5 a dmap:Argument;
+   dmap:id "5"^^xsd:integer;
+   dmap:text "Lucy is lactose-intolerant";
+   dmap:objectsTo ex:node2.
+
+ex:node6 a dmap:Argument;
+    dmap:id "6"^^xsd:integer;
+    dmap:text "We had burgers last week";
+    dmap:objectsTo ex:node4.
+
+ex:node7 a dmap:Issue;
+    dmap:id "7"^^xsd:integer;
+    dmap:text "Gio's has non-dairy pizza";
+    dmap:questions ex:node5
+
+
