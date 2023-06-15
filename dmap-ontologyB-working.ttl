@@ -1,0 +1,70 @@
+@prefix ex: <http://example.com/>.
+@prefix dmap: <https://ontologies.semanticarts.com/dmap/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+# Declare classes
+dmap:Node a rdfs:Class.
+
+dmap:Issue a rdfs:Class;
+   rdfs:subClassOf dmap:Node.
+
+dmap:Argument a rdfs:Class;
+   rdfs:subClassOf dmap:Node.
+
+dmap:Position a rdfs:Class;
+   rdfs:subClassOf dmap:Node.
+
+# Declare properties
+dmap:text a rdf:Property;
+   rdfs:domain dmap:Node;
+   rdfs:range xsd:string.
+
+dmap:isDeprecated a rdf:Property;
+   rdfs:domain dmap:Node;
+   rdfs:range xsd:boolean.
+
+dmap:id a rdf:Property;
+   rdfs:domain dmap:Node;
+   rdfs:range xsd:integer.
+
+dmap:suggestedBy a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node.
+
+dmap:questions a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node;
+   rdfs:subPropertyOf dmap:suggestedBy.
+
+dmap:generalizes a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node;
+   rdfs:subPropertyOf dmap:suggestedBy.
+
+dmap:specializes a rdf:Property;
+   rdfs:domain dmap:Issue;
+   rdfs:range dmap:Node;
+   rdfs:subPropertyOf dmap:suggestedBy.
+
+dmap:replaces a rdf:Property;
+   rdfs:domain dmap:Node;
+   rdfs:range dmap:Node.
+
+dmap:respondsTo a rdf:Property;
+   rdfs:domain dmap:Position;
+   rdfs:range dmap:Issue;
+   rdfs:subPropertyOf dmap:suggestedBy.
+
+dmap:supports a rdf:Property;
+   rdfs:domain dmap:Argument;
+   rdfs:range dmap:Position;
+   rdfs:subPropertyOf dmap:respondsTo.
+
+dmap:objectsTo a rdf:Property;
+   rdfs:domain dmap:Argument;
+   rdfs:range dmap:Position;
+   rdfs:subPropertyOf dmap:respondsTo.
+
+
