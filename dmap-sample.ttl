@@ -1,0 +1,86 @@
+@prefix ex: <http://example.com/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+# Declare classes
+ex:Node a rdfs:Class.
+
+ex:Issue a rdfs:Class;
+   rdfs:subClassOf ex:Node.
+
+ex:Argument a rdfs:Class;
+   rdfs:subClassOf ex:Node.
+
+ex:Position a rdfs:Class;
+   rdfs:subClassOf ex:Node.
+
+# Declare properties
+ex:text a rdf:Property;
+   rdfs:domain ex:Node;
+   rdfs:range xsd:string.
+
+ex:isDeprecated a rdf:Property;
+   rdfs:domain ex:Node;
+   rdfs:range xsd:boolean.
+
+ex:id a rdf:Property;
+   rdfs:domain ex:Node;
+   rdfs:range xsd:integer.
+
+ex:suggestedBy a rdf:Property;
+   rdfs:domain ex:Issue;
+   rdfs:range ex:Node.
+
+ex:questions a rdf:Property;
+   rdfs:domain ex:Issue;
+   rdfs:range ex:Node;
+   rdfs:subPropertyOf ex:suggestedBy.
+
+ex:generalizes a rdf:Property;
+   rdfs:domain ex:Issue;
+   rdfs:range ex:Node;
+   rdfs:subPropertyOf ex:suggestedBy.
+
+ex:specializes a rdf:Property;
+   rdfs:domain ex:Issue;
+   rdfs:range ex:Node;
+   rdfs:subPropertyOf ex:suggestedBy.
+
+ex:replaces a rdf:Property;
+   rdfs:domain ex:Node;
+   rdfs:range ex:Node.
+
+ex:respondsTo a rdf:Property;
+   rdfs:domain ex:Position;
+   rdfs:range ex:Issue;
+   rdfs:subPropertyOf ex:suggestedBy.
+
+ex:supports a rdf:Property;
+   rdfs:domain ex:Argument;
+   rdfs:range ex:Position;
+   rdfs:subPropertyOf ex:respondsTo.
+
+ex:objectsTo a rdf:Property;
+   rdfs:domain ex:Argument;
+   rdfs:range ex:Position;
+   rdfs:subPropertyOf ex:respondsTo.
+
+# Some instance data
+ex:node1 a ex:Issue;
+   ex:id "1"^^xsd:integer;
+   ex:text "This is some text for issue node";
+   ex:isDeprecated "false"^^xsd:boolean;
+   ex:suggestedBy ex:node2.
+
+ex:node2 a ex:Argument;
+   ex:id "2"^^xsd:integer;
+   ex:text "This is some text for argument node";
+   ex:isDeprecated "false"^^xsd:boolean;
+   ex:supports ex:node3.
+
+ex:node3 a ex:Position;
+   ex:id "3"^^xsd:integer;
+   ex:text "This is some text for position node";
+   ex:isDeprecated "true"^^xsd:boolean;
+   ex:respondsTo ex:node1.
