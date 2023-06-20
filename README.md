@@ -41,3 +41,5 @@ Command-line options
 - --list
 - --delete
 - --restore
+- --agreed
+- --unagreed
