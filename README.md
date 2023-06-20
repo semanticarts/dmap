@@ -43,3 +43,4 @@ Command-line options
 - --restore
 - --agreed
 - --unagreed
+- --ttl (return full graph in turtle format)
