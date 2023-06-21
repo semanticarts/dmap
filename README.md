@@ -45,3 +45,4 @@ Command-line options
 - --unagreed
 - --ttl (return full graph in turtle format)
 - --png (return graphical rendering of full graph in PNG format)
+- --exit
